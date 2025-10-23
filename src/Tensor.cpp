@@ -2,15 +2,16 @@
 #include <vector>
 #include <typeinfo>
 #include <iostream>
+using namespace std;
 
 class Tensor {
     public:
-    std::vector<double> numbers; 
-    std::vector<double> shape;
+    vector<double> numbers; 
+    vector<double> shape;
     int dimensions;
 
     template<typename T>
-    Tensor(const std::vector<T> tensor) {
+    Tensor(const vector<T> tensor) {
         std::cout << typeid(tensor).name() << std::endl;
     }
-}
+};
