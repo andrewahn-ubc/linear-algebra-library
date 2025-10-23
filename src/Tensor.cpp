@@ -6,35 +6,44 @@ using namespace std;
 
 class Tensor {
     public:
+
     vector<double> flattened_tensor; 
-    vector<double> shape;
-    int dimensions;
+    vector<int> shape;
+    int num_dimensions;
 
     template<typename T>
     Tensor(const vector<T> tensor) {
-        determine_shape(tensor);
-
-        for (double i : shape) {
+        determine_shape(tensor); 
+        this->num_dimensions = this->shape.size();
+        flatten(tensor);
+        for (auto i : flattened_tensor) {
             cout << i << endl;
         }
     }
 
     private:
-    // Returns the shape of the given tensor
+
+    // Recursively finds the shape of the given tensor
+    // TODO: handle invalid tensor shapes to make the function more robust
     template<typename T>
     void determine_shape(const vector<T> tensor) {
         this->shape.push_back(tensor.size());
 
-        if constexpr (!is_arithmetic<T>::value) {
-            determine_shape(tensor[0]);
+        if (!is_arithmetic<T>::value) {
+            determine_shape(tensor[0]); // assumes the tensor isn't empty
         }
     }
-    // template<typename T>
-    // void determine_shape(const T tensor) {
-    //     this->shape.push_back(tensor.size());
+    template<typename T>
+    void determine_shape(const T tensor) {}
 
-    //     if (!is_arithmetic<T>::value) {
-    //         determine_shape(tensor[0]);
-    //     }
-    // }
+    // Recursively ransforms the n-dimensional tensor into a flat, 1-dimensional one
+    template<typename T>
+    void flatten(const vector<T> tensor) {
+        for (auto i : tensor) {
+            flatten(i);
+        }
+    }
+    void flatten(const double leaf_element) {
+        this->flattened_tensor.push_back(leaf_element);
+    }
 };
