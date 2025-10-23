@@ -12,4 +12,5 @@ Stretch Goals:
 - [ ] Basic broadcasting
 - [ ] Parallelization via multithreading
 - [ ] Handle numerical instability (eg. pivoting for LU, compensated summation algorithms to mitigate cancellation error, etc.)
+- [ ] Generating tensors (empty, identity, random, uniform distribution, normal distribution)
 - [ ] Other linear algebra tools (LU & QR decomposition, inverses, transposes, determinant, eigenvalues, etc.)
